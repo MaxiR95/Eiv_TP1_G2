@@ -60,10 +60,14 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Led_Pin GPIO_PIN_13
 #define Led_GPIO_Port GPIOC
-#define Led_D1_Pin GPIO_PIN_8
-#define Led_D1_GPIO_Port GPIOB
-#define Bot_A1_Pin GPIO_PIN_9
-#define Bot_A1_GPIO_Port GPIOB
+#define pulsador_Pin GPIO_PIN_5
+#define pulsador_GPIO_Port GPIOB
+#define latch_Pin GPIO_PIN_7
+#define latch_GPIO_Port GPIOB
+#define data_Pin GPIO_PIN_8
+#define data_GPIO_Port GPIOB
+#define clock_Pin GPIO_PIN_9
+#define clock_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
