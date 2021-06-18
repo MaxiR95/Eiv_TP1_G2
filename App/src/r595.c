@@ -15,10 +15,13 @@ void R595_init(R595 *self,Pin *dato, Pin *reloj, Pin *cerrojo)
 }
 void R595_ingresaByte(R595 *self,uint8_t byte)
 {
-	/* REEMPLAZAR POR UNA IMPLEMENTACIÓN QUE FUNCIONE */
-	/*stub - implementación vacía, reemplazar con la verdadera implementación*/
-	(void)self;
-	(void)byte;
+	for(int i=7;i>=0;--i){
+		const uint8_t mascara=(1<<i);
+
+		Pin_escribir(self->reloj, 0);
+
+	}
+
 }
 void R595_actualizaSalidas(R595 *self)
 {
