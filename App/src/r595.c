@@ -19,15 +19,18 @@ void R595_ingresaByte(R595 *self,uint8_t byte)
 		const uint8_t mascara=(1<<i);
 
 		Pin_escribir(self->reloj, 0);
-
+		const int bit= (byte & mascara)==mascara;
+		Pin_escribir(self->dato,bit);
+		Pin_escribir(self->reloj,1);
 	}
-
+	Pin_escribir(self->reloj,0);
+	Pin_escribir(self->dato,0);
 }
 void R595_actualizaSalidas(R595 *self)
 {
-	/* REEMPLAZAR POR UNA IMPLEMENTACIÓN QUE FUNCIONE */
-	/*stub - implementación vacía, reemplazar con la verdadera implementación*/
-	(void)self;
+	Pin_escribir(self->cerrojo,1);
+	Pin_escribir(self->cerrojo,0);
+
 }
 
 /*----fin----*/
