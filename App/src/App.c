@@ -25,6 +25,11 @@ static Pin latch;
 
 static R595 registroDisplay;
 
+static uint8_t palabras[2][4]={
+		{0x79|0x80, 0x24|0x80, 0x30|0x80, 0x19|0x80},		//digitos 1 2 3 4 sin puntos,
+		{0x88, 0x83, 0xC6, 0xA1}};		//letras A B C D sin puntos
+
+
 void setup(void) {
 	/*Inicializar objetos Pin*/
 	Pin_init(&pulsador,pulsador_GPIO_Port,pulsador_Pin);
@@ -40,26 +45,24 @@ void setup(void) {
 
 
 void loop(void) {
-	uint8_t config_catodos = 0xFF; // por defecto - todo apagado
-	uint8_t config_anodos = 0; // por defecto - todo apagado
+	int j=0;
 
 	//Lee boton en A1
 	if (Pin_leer(&pulsador) == 0) {
-		//si boton presionado, enciende led D1
-		Pin_escribir(&led, 0);
-		//enciende todos los segmentos del primer display
-		config_catodos = 0;
-		config_anodos = 1;
-
-	} else {
-		//sino, apaga led D1
-		Pin_escribir(&led, 1);
-
+		j=1;
 	}
 
-	// actualiza pines de salida que controlan el display
-	R595_ingresaByte(&registroDisplay, config_catodos);
-	R595_ingresaByte(&registroDisplay, config_anodos);
-	R595_actualizaSalidas(&registroDisplay);
+	for(int i=0 ; i<4 ; i++){
+
+		uint8_t config_catodos = palabras[j][i];
+		uint8_t config_anodos = 1<<i;
+		// actualiza pines de salida que controlan el display
+		R595_ingresaByte(&registroDisplay, config_catodos);
+		R595_ingresaByte(&registroDisplay, config_anodos);
+		R595_actualizaSalidas(&registroDisplay);
+	}
+
+
+
 
 }
