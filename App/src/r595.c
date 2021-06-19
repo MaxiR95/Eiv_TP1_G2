@@ -15,13 +15,13 @@ void R595_init(R595 *self,Pin *dato, Pin *reloj, Pin *cerrojo)
 }
 void R595_ingresaByte(R595 *self,uint8_t byte)
 {
-	for(int i=7;i>=0;--i){
-		const uint8_t mascara=(1<<i);
+	for(int i=7;i>=0;--i){						//LAZO PARA RECORRER EL BYTE
+		const uint8_t mascara=(1<<i);			//mascara para elegir un bit en particular
 
-		Pin_escribir(self->reloj, 0);
-		const int bit= (byte & mascara)==mascara;
-		Pin_escribir(self->dato,bit);
-		Pin_escribir(self->reloj,1);
+		Pin_escribir(self->reloj, 0);			//señal de reloj a 0
+		const int bit= (byte & mascara)==mascara;		//elijo un bit
+		Pin_escribir(self->dato,bit);			//escribo el bit en el pin dato
+		Pin_escribir(self->reloj,1);			//señal de reloj a 1
 	}
 	Pin_escribir(self->reloj,0);
 	Pin_escribir(self->dato,0);
